@@ -68,14 +68,70 @@ public:
 
     void deleteNode(int index) {
        //TODO:Write the function to delete at the given index. Reuse the pre-written functions for edge cases. Account for missing index.
+        if (index < 0 || index >= length) {
+            return;
+        }
+
+        if (index == 0) {
+            delfirst();
+            return;
+        }
+
+            Node<T> *temp = head;
+        for (int i = 0; i < index - 1; i++) {
+            temp = temp->next;
+        }
+        Node<T> *temp2 = temp->next;
+        temp->next = temp2->next;
+        delete temp2;
+        length--;
+
     }
 
    void insert(int index, T *value) {
         //TODO:Write a function to insert a new node at a give index. Reuse the pre-written functions for edge cases. Account for missing index
+        if (index < 0 || index > length) {
+            return;
+        }
+
+        if (index == 0) {
+            addhead(value);
+            return;
+        }
+        if (index == length) {
+            add(value);
+            return;
+        }
+
+
+        Node<T> *temp = head;
+        for (int i = 0; i < index - 1; i++) {
+            temp = temp->next;
+        }
+        Node<T> *temp2 = temp->next;
+        Node<T> *newNode = new Node<T>(value);
+        temp->next = newNode;
+        newNode->next = temp2;
+        length++;
+
+
+
+
     }
 
    void reverselist(){
         //TODO:Write a function to reverse the list using the logic from the slide.
+       Node<T> *prev = NULL;
+        Node<T> *curr = head;
+        Node<T> *next = NULL;
+        while (curr != NULL) {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+
     }
 
     void print() {
